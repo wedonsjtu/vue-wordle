@@ -3,6 +3,8 @@ import { onUnmounted } from 'vue'
 import { getWordOfTheDay, allWords } from './words'
 import Keyboard from './Keyboard.vue'
 import { LetterState } from './types'
+//@ts-ignore
+import { calcRemainPossibility } from "./solver/calculator"
 
 // Get word of the day
 const answer = getWordOfTheDay()
@@ -120,17 +122,20 @@ function completeRow() {
         )
         success = true
       }, 1600)
+      calcRemainPossibility(board);
     } else if (currentRowIndex < board.length - 1) {
       // go the next row
       currentRowIndex++
       setTimeout(() => {
         allowInput = true
       }, 1600)
+      calcRemainPossibility(board);
     } else {
       // game over :(
       setTimeout(() => {
         showMessage(answer.toUpperCase(), -1)
       }, 1600)
+      calcRemainPossibility(board);
     }
   } else {
     shake()

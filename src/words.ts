@@ -3,7 +3,11 @@ const defaultMessage = ' Using word of the day instead.'
 export function getWordOfTheDay() {
   if (location.search) {
     try {
-      const query = atob(location.search.slice(1))
+      // const query = atob(location.search.slice(1))
+      let query = location.search.slice(1)
+      if (query.length !== 5) {
+        query = atob(location.search.slice(1))
+      }
       if (query.length !== 5) {
         alert(`Incorrect word length from encoded query. ${defaultMessage}`)
       } else {
